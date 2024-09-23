@@ -15,10 +15,10 @@
 		Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(LCMPluginName)/&quot;"
 	/>
   </Target>
-  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" AfterTargets="MinVer">
     <PropertyGroup>
-    <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
-    <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
+      <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+      <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
     </PropertyGroup>
   </Target>
 
