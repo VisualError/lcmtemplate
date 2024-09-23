@@ -1,27 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <!--
-    All props required to make this Target work is in the Directory.Build.props file.
-
-    Create your 'Test Profile' using your modman of choice before enabling this.
-    Enable by setting the Condition attribute to "true". *nix users should switch out `copy` for `cp`. 
-  -->
-  <Target Name="CopyToTestProfile" AfterTargets="PostBuildEvent" Condition="Exists('$(TestProfileDirectory)')">
-    <MakeDir
-      Directories="$(PluginsDirectory)/$(LCMPluginName)"
-      Condition="!Exists('$(PluginsDirectory)/$(LCMPluginName)')"
-    />
-    <Exec 
-		Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(LCMPluginName)/&quot;"
-	/>
-  </Target>
-  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" AfterTargets="MinVer">
-    <PropertyGroup>
-      <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
-      <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
-    </PropertyGroup>
-  </Target>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
 
@@ -42,6 +19,45 @@
     <RootNamespace>$(Product)</RootNamespace>
     <TargetName>$(Product)</TargetName>
   </PropertyGroup>
+
+  <!--
+    Change the properties here to your personal liking.
+
+    Create your 'Test Profile' using your modman of choice before enabling this.
+    Enable by setting the Condition attribute to "true". *nix users should switch out `copy` for `cp`. 
+  -->
+  <PropertyGroup>
+    <MODManagerDirectory>$(APPDATA)/r2modmanPlus-local</MODManagerDirectory>
+    <TestProfileDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(Product)</TestProfileDirectory>
+    <BepInExDirectory>$(TestProfileDirectory)/BepInEx</BepInExDirectory>
+    <PluginsDirectory>$(BepInExDirectory)/plugins</PluginsDirectory>
+    <MMHOOK_REFERENCES>$(PluginsDirectory)/MMHOOK</MMHOOK_REFERENCES>
+  </PropertyGroup>
+
+  <!--
+    Everything beyond here requires you to have a mod profile named Test_(ModName) with MMHOOK and BepInEx.
+  -->
+  
+  <Target Name="CopyToTestProfile" AfterTargets="PostBuildEvent" Condition="Exists('$(TestProfileDirectory)')">
+    <MakeDir
+      Directories="$(PluginsDirectory)/$(Product)"
+      Condition="!Exists('$(PluginsDirectory)/$(Product)')"
+    />
+    <Exec 
+		Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(Product)/&quot;"
+	/>
+
+  <!--
+    This target sets up the dll's version automatically using MinVer.
+  -->
+
+  </Target>
+  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" AfterTargets="MinVer">
+    <PropertyGroup>
+      <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+      <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
+    </PropertyGroup>
+  </Target>
 
   <!--
     Don't mess with anything below this line, it is required to build via 
