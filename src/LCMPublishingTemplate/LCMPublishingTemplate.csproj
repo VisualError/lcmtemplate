@@ -1,5 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <!--
+    All props required to make this Target work is in the Directory.Build.props file.
+
+    Create your 'Test Profile' using your modman of choice before enabling this.
+    Enable by setting the Condition attribute to "true". *nix users should switch out `copy` for `cp`. 
+  -->
+  <Target Name="CopyToTestProfile" AfterTargets="PostBuildEvent">
+    <MakeDir
+      Directories="$(PluginsDirectory)/$(LCMPluginName)"
+      Condition="Exists('$(TestProfileDirectory)') And !Exists('$(PluginsDirectory)/$(LCMPluginName)')"
+    />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(LCMPluginName)/&quot;" />
+	</Target>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
 
@@ -20,6 +34,12 @@
     <RootNamespace>$(Product)</RootNamespace>
     <TargetName>$(Product)</TargetName>
   </PropertyGroup>
+
+  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+    <PropertyGroup>
+      <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+    </PropertyGroup>
+  </Target>
 
   <!--
     Don't mess with anything below this line, it is required to build via 
