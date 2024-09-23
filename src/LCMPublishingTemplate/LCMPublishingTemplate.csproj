@@ -58,6 +58,9 @@
       <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
     </PropertyGroup>
   </Target>
+  <PropertyGroup>
+	  <MinVerMinimumMajorMinor>0.0</MinVerMinimumMajorMinor>
+  </PropertyGroup>
 
   <!--
     Don't mess with anything below this line, it is required to build via 
