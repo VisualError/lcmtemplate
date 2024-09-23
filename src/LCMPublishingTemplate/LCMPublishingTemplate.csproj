@@ -40,9 +40,15 @@
       Include="BepInEx.Core"
       Version="5.4.*"
     />
+    <PackageReference 
+      Include="BepInEx.AssemblyPublicizer.MSBuild"
+      PrivateAssets="all"
+      Version="0.4.1"
+    />
     <PackageReference
       Include="LethalCompany.GameLibs.Steam"
       Version="62.0.0-ngd.0"
+      Publicize="true"
     />
     <PackageReference 
       Include="MinVer"
@@ -61,6 +67,13 @@
 
       Example: <Reference Include="Assembly-CSharp.dll" Private="false" />
     -->
+
+    <Referece 
+      Include="MMHOOK_Assembly-CSharp"
+      HintPath="$(MMHOOK_REFERENCES)\MMHOOK_Assembly-CSharp.dll" 
+      Private="False"
+    />
+
   </ItemGroup>
 
 </Project>
