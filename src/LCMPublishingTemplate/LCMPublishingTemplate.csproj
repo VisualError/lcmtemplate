@@ -90,7 +90,7 @@
       Example: <Reference Include="Assembly-CSharp.dll" Private="false" />
     -->
 
-    <Referece 
+    <Reference 
       Include="MMHOOK_Assembly-CSharp"
       HintPath="$(MMHOOK_REFERENCES)\MMHOOK_Assembly-CSharp.dll" 
       Private="False"
