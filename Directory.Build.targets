@@ -42,4 +42,18 @@ internal static class LCMPluginInfo
 
   </Target>
 
+  <!--
+    All props required to make this Target work is in the Directory.Build.props file.
+    
+    Create your 'Test Profile' using your modman of choice before enabling this.
+    Enable by setting the Condition attribute to "true". *nix users should switch out `copy` for `cp`. 
+  -->
+  <Target Name="CopyToTestProfile" AfterTargets="PostBuildEvent" Condition="false">
+    <MakeDir
+      Directories="$(PluginsDirectory)/$(LCMPluginName)"
+      Condition="Exists('$(TestProfileDirectory)') And !Exists('$(PluginsDirectory)/$(LCMPluginName)')"
+    />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(LCMPluginName)/&quot;" />
+	</Target>
+
 </Project>

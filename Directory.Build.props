@@ -25,4 +25,15 @@
     <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
   </PropertyGroup>
 
+  <!-- 
+    Changes these references to your liking.
+  -->
+  <PropertyGroup>
+    <MODManagerDirectory>$(APPDATA)/r2modmanPlus-local</MODManagerDirectory>
+    <TestProfileDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(LCMPluginName)</TestProfileDirectory>
+    <BepInExDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(LCMPluginName)/BepInEx</BepInExDirectory>
+    <PluginsDirectory>$(BepInExDirectory)/plugins</PluginsDirectory>
+    <MMHOOK_REFERENCES>$(TestProfileDirectory)/BepInEx/plugins</MMHOOK_REFERENCES>
+  </PropertyGroup>
+
 </Project>
