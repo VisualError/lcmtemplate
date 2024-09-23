@@ -33,7 +33,7 @@
     <TestProfileDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(LCMPluginName)</TestProfileDirectory>
     <BepInExDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(LCMPluginName)/BepInEx</BepInExDirectory>
     <PluginsDirectory>$(BepInExDirectory)/plugins</PluginsDirectory>
-    <MMHOOK_REFERENCES>$(TestProfileDirectory)/BepInEx/plugins</MMHOOK_REFERENCES>
+    <MMHOOK_REFERENCES>$(PluginsDirectory)/MMHOOK</MMHOOK_REFERENCES>
   </PropertyGroup>
 
 </Project>
