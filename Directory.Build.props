@@ -21,4 +21,8 @@
     <PathMap>$([System.IO.Path]::GetFullPath('$(SolutionDir)'))=./</PathMap>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
+  </PropertyGroup>
+
 </Project>
