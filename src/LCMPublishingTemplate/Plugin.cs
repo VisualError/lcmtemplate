@@ -28,6 +28,28 @@ public class Plugin : BaseUnityPlugin
 
     // Log our awake here so we can see it in LogOutput.txt file
     Log.LogInfo($"Plugin {LCMPluginInfo.PLUGIN_NAME} is loaded!");
+
+    Hook();
+  }
+
+  private static void Hook()
+  {
+    Log.LogInfo($"Starting Hooks!");
+    var types = Assembly.GetExecutingAssembly().GetTypes();
+
+    foreach (var type in types)
+    {
+      var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+      foreach (var method in methods)
+      {
+        if (method.GetCustomAttribute<HookInitAttribute>() != null)
+        {
+          Log.LogDebug($"Hooking ${type.Name}");
+          method.Invoke(null, null);
+        }
+      }
+    }
   }
 
 }
