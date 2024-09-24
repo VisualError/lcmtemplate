@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <!--
-    Everything beyond here requires you to have a mod profile named Test_(ModName) with MMHOOK and BepInEx.
+    Everything beyond here requires you to have a mod profile named Test_(ModName/Product/Any) with MMHOOK and BepInEx.
     Change the properties here to your personal liking.
   -->
   <PropertyGroup>
@@ -42,7 +42,18 @@
     <Exec 
       Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(Product)/&quot;"
     />
+  </Target>
+  
+  <!-- For CI References -->
+  <Target Name="EnsureLibDir">
+    <MakeDir Directories="../../lib" Condition="!Exists('../../lib')" />
+  </Target>
 
+  <Target Name="FetchSomething" DependsOnTargets="EnsureLibDir">
+  </Target>
+  
+  <Target Name="FetchDependencies" BeforeTargets="BeforeCompile;CoreCompile" Condition="$(CI) == true">
+    <CallTarget Targets="FetchSomething;"/>
   </Target>
 
   <!--
