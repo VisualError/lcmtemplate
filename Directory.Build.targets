@@ -8,13 +8,19 @@
     />
   </ItemGroup>
 
+  <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+	<PropertyGroup>
+      <BepInExPluginVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</BepInExPluginVersion>
+	</PropertyGroup>
+  </Target>
+
   <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile"
       Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)LCMPluginInfo.cs">
 
     <PropertyGroup>
       <LCMPluginGuid Condition="'$(LCMPluginGuid)' == ''">$(AssemblyName)</LCMPluginGuid>
       <LCMPluginName Condition="'$(LCMPluginName)' == ''">$(Product)</LCMPluginName>
-      <LCMPluginVersion Condition="'$(LCMPluginVersion)' == ''">$(PlainVersion)</LCMPluginVersion>
+      <LCMPluginVersion Condition="'$(LCMPluginVersion)' == ''">$(BepInExPluginVersion)</LCMPluginVersion>
       <GeneratedText><![CDATA[
 internal static class LCMPluginInfo
 {
