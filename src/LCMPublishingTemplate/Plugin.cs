@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using System.Reflection;
 
 /*
   Here are some basic resources on code style and naming conventions to help
@@ -45,7 +46,7 @@ public class Plugin : BaseUnityPlugin
       {
         if (method.GetCustomAttribute<HookInitAttribute>() != null)
         {
-          Log.LogDebug($"Hooking ${type.Name}");
+          Log.LogDebug($"Hooking {type.Name}");
           method.Invoke(null, null);
         }
       }
