@@ -31,7 +31,8 @@
     <TestProfileDirectory>$(MODManagerDirectory)/LethalCompany/profiles/Test_$(Product)</TestProfileDirectory>
     <BepInExDirectory>$(TestProfileDirectory)/BepInEx</BepInExDirectory>
     <PluginsDirectory>$(BepInExDirectory)/plugins</PluginsDirectory>
-    <MMHOOK_REFERENCES>$(PluginsDirectory)/MMHOOK</MMHOOK_REFERENCES>
+    <MMHOOK_REFERENCES Condition="$(CI) != 'true'">$(PluginsDirectory)/MMHOOK</MMHOOK_REFERENCES>
+    <MMHOOK_REFERENCES Condition="$(CI) == 'true'">$(OutputPath)</MMHOOK_REFERENCES>
   </PropertyGroup>
 
   <!--
@@ -108,11 +109,11 @@
 
       Example: <Reference Include="Assembly-CSharp.dll" Private="false" />
     -->
-
+    <!-- Do not change this. Private is set to true because this is required for building-->
     <Reference 
       Include="MMHOOK_Assembly-CSharp"
       HintPath="$(MMHOOK_REFERENCES)\MMHOOK_Assembly-CSharp.dll" 
-      Private="False"
+      Private="True"
     />
 
   </ItemGroup>
