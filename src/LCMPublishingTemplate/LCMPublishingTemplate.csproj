@@ -21,10 +21,8 @@
   </PropertyGroup>
 
   <!--
+    Everything beyond here requires you to have a mod profile named Test_(ModName) with MMHOOK and BepInEx.
     Change the properties here to your personal liking.
-
-    Create your 'Test Profile' using your modman of choice before enabling this.
-    Enable by setting the Condition attribute to "true". *nix users should switch out `copy` for `cp`. 
   -->
   <PropertyGroup>
     <MODManagerDirectory>$(APPDATA)/r2modmanPlus-local</MODManagerDirectory>
@@ -35,17 +33,14 @@
     <MMHOOK_REFERENCES Condition="$(CI) == 'true'">$(OutputPath)</MMHOOK_REFERENCES>
   </PropertyGroup>
 
-  <!--
-    Everything beyond here requires you to have a mod profile named Test_(ModName) with MMHOOK and BepInEx.
-  -->
-  
+  <!-- *nix users should switch out `copy` for `cp`. -->
   <Target Name="CopyToTestProfile" AfterTargets="PostBuildEvent" Condition="Exists('$(TestProfileDirectory)')">
     <MakeDir
       Directories="$(PluginsDirectory)/$(Product)"
       Condition="!Exists('$(PluginsDirectory)/$(Product)')"
     />
     <Exec 
-        Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(Product)/&quot;"
+      Command="copy &quot;$(TargetPath)&quot; &quot;$(PluginsDirectory)/$(Product)/&quot;"
     />
 
   </Target>
