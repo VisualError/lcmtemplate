@@ -23,7 +23,7 @@
 
   <PropertyGroup>
     <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
-	<MinVerMinimumMajorMinor>0.0</MinVerMinimumMajorMinor>
+    <MinVerMinimumMajorMinor>0.0</MinVerMinimumMajorMinor>
   </PropertyGroup>
 
 </Project>

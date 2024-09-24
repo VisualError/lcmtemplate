@@ -9,9 +9,9 @@
   </ItemGroup>
 
   <Target Name="SetModVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
-	<PropertyGroup>
+    <PropertyGroup>
       <BepInExPluginVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</BepInExPluginVersion>
-	</PropertyGroup>
+    </PropertyGroup>
   </Target>
 
   <Target Name="AddGeneratedFile" BeforeTargets="BeforeCompile;CoreCompile"
