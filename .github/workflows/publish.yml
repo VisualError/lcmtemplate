@@ -1,8 +1,8 @@
 name: Publish Mod To TS
 
 on:
-  push:
-    tags: "*"
+  release:
+    types: [prereleased, released]
 
 jobs:
   publish:
@@ -28,11 +28,28 @@ jobs:
       - name: Publish to TS
         env:
           TCLI_AUTH_TOKEN: ${{ secrets.TCLI_AUTH_TOKEN }}
-          PACKAGE_VERSION: ${{ github.ref_name }}
+          PACKAGE_VERSION: ${{ github.event.release.tag_name }}
         run: |
           dotnet publish -c Release
+
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
-          path: "$GITHUB_WORKSPACE/artifacts/tpublish/build/*.zip"
+          name: thunderstore-build
+          path: "./artifacts/tspublish/build/*.zip"
+
+  upload-release-artifacts:
+    name: Upload Release Artifacts
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: Upload artifacts to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.event.release.tag_name }} "./artifacts/tspublish/build/*.zip"
