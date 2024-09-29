@@ -45,7 +45,7 @@
   
   <!-- For CI References -->
   <Target Name="EnsureLibDir">
-    <MakeDir Directories="../../lib" Condition="!Exists('../../lib')" />
+    <MakeDir Directories="$(SolutionDir)/lib" Condition="!Exists('$(SolutionDir)/lib')" />
   </Target>
 
   <Target Name="FetchSomething" DependsOnTargets="EnsureLibDir">
