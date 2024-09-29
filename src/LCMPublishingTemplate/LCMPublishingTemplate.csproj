@@ -56,10 +56,12 @@
   </Target>
 
   <ItemGroup>
-    <FilesToCopy 
-      Include="$(OutputPath)**\*" 
-      Exclude="$(OutputPath)**\MMHOOK_*.dll; $(OutputPath)**\.gitkeep" 
-    />
+    <FilesToCopy Include="$(OutputPath)**\*" />
+    <FilesToCopy Include="$(SolutionDir)\CHANGELOG.md"/>
+    <FilesToCopy Include="$(SolutionDir)\LICENSE.md"/>
+    <FilesToCopy Include="$(SolutionDir)\README.md"/>
+    <FilesToCopy Exclude="$(OutputPath)**\MMHOOK_*.dll" />
+    <FilesToCopy Exclude="$(OutputPath)**\.gitkeep" />
   </ItemGroup>
 
   <Target Name="PackThunderstore" DependsOnTargets="SetModVersion">
