@@ -55,6 +55,19 @@
     <CallTarget Targets="FetchSomething;"/>
   </Target>
 
+  <ItemGroup>
+    <FilesToCopy 
+      Include="$(OutputPath)**\*" 
+      Exclude="$(OutputPath)**\MMHOOK_*.dll; $(OutputPath)**\.gitkeep" 
+    />
+  </ItemGroup>
+
+  <Target Name="PackThunderstore" DependsOnTargets="SetModVersion">
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(SolutionDir)\artifacts\tspublish\dist\plugins"
+        />
+    <Exec Command="dotnet tcli build --package-name &quot;$(Product)&quot; --package-namespace &quot;$(Authors)&quot; --package-version &quot;$(BepInExPluginVersion)&quot;" ConsoleToMSBuild="true" WorkingDirectory="$(SolutionDir)\artifacts\tspublish" />
+  </Target>
+
   <!--
     Don't mess with anything below this line, it is required to build via 
     github actions. If you are referencing other DLLs in your project than the
